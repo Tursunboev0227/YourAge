@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отображение возраста в реальном времени</title>
+<style>
+#age {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 18px;
+    color: red;
+}
+</style>
+</head>
+<body>
+<div id="age"></div>
+
+<script>
+function calculateAge(birthDate) {
+    const currentDate = new Date();
+    const birth = new Date(birthDate);
+    let age = currentDate.getFullYear() - birth.getFullYear();
+    const monthDiff = currentDate.getMonth() - birth.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < birth.getDate())) {
+        age--;
+    }
+    return age;
+}
+
+function updateAge() {
+    const birthDate = '2005-02-27'; // Пример даты рождения в формате 'ГГГГ-ММ-ДД'
+    const ageElement = document.getElementById('age');
+    const age = calculateAge(birthDate);
+    ageElement.textContent = 'Ваш возраст: ' + age;
+}
+
+// Обновление возраста изначально
+updateAge();
+
+// Обновление возраста каждую минуту (можно изменить по необходимости)
+setInterval(updateAge, 60000);
+</script>
+</body>
+</html>
